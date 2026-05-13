@@ -15,7 +15,10 @@ interface SuccessScreenProps {
 /** Replaces the form after successful submission with a confirmation summary and reset CTA. */
 const SuccessScreen = ({ formData, onReset }: SuccessScreenProps) => {
   const firstName = formData.fullName?.split(" ")[0] ?? "there";
-  const selectedTrackData = TRACKS.find((t) => t.id === formData.selectedTrack);
+  const isCustomTrack = formData.selectedTrack === "other";
+  const selectedTrackData = isCustomTrack
+    ? null
+    : TRACKS.find((t) => t.id === formData.selectedTrack);
 
   return (
     <div className="flex flex-col items-center text-center">
@@ -60,8 +63,13 @@ const SuccessScreen = ({ formData, onReset }: SuccessScreenProps) => {
               <div>
                 <p className="text-xs text-slate-500 font-medium">Track</p>
                 <p className="text-sm font-semibold text-slate-900">
-                  {selectedTrackData?.name ?? "—"}
+                  {isCustomTrack
+                    ? formData.customTrack ?? "—"
+                    : selectedTrackData?.name ?? "—"}
                 </p>
+                {isCustomTrack && (
+                  <p className="text-xs text-amber-600 font-medium mt-0.5">Custom suggestion</p>
+                )}
               </div>
             </div>
             <div className="flex items-start gap-3">

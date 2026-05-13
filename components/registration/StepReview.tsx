@@ -95,7 +95,19 @@ const StepReview = ({ formData, onSubmit, onEditStep }: StepReviewProps) => {
 
         {/* Section 3: Track */}
         <ReviewSection title="Selected Track" onEdit={() => onEditStep(2)}>
-          {selectedTrackData ? (
+          {formData.selectedTrack === "other" ? (
+            <div className="flex items-center gap-3">
+              <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-amber-100 flex-shrink-0">
+                <span className="text-amber-600 text-xs font-bold">✦</span>
+              </div>
+              <div>
+                <p className="text-xs text-slate-500 font-medium mb-0.5">Custom suggestion</p>
+                <p className="text-sm font-semibold text-slate-900">
+                  {formData.customTrack || "—"}
+                </p>
+              </div>
+            </div>
+          ) : selectedTrackData ? (
             <div className="flex items-center gap-3">
               <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-blue-100 flex-shrink-0">
                 <span className="text-blue-600 text-xs font-bold">#{selectedTrackData.id}</span>

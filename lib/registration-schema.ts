@@ -30,6 +30,7 @@ export const backgroundInfoSchema = z.object({
 
 export const trackSelectionSchema = z.object({
   selectedTrack: z.string().min(1, "Please select a skill track"),
+  customTrack: z.string().optional(),
 });
 
 export const registrationFormSchema = personalInfoSchema
