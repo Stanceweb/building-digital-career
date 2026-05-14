@@ -2,8 +2,12 @@
 // Uses Web Crypto API — compatible with both Edge runtime (middleware) and Node.js 18+
 
 function getSecret(): string {
-  const secret = process.env.ADMIN_SECRET;
-  if (!secret) throw new Error("ADMIN_SECRET environment variable is not set");
+  // ADMIN_SECRET is optional — falls back to ADMIN_PASSWORD as the HMAC key.
+  // Set ADMIN_SECRET explicitly for extra security (session independence from password).
+  const secret =
+    process.env.ADMIN_SECRET ||
+    process.env.ADMIN_PASSWORD;
+  if (!secret) throw new Error("Neither ADMIN_SECRET nor ADMIN_PASSWORD is set");
   return secret;
 }
 
