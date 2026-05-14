@@ -6,6 +6,7 @@ import type { RegistrationFormData } from "@/lib/registration-schema";
 import { getTrackDisplayName } from "@/lib/types";
 
 export const VERIFY_BASE_URL = "https://bdc.stanceweb.us/verify";
+export const QR_BASE_URL = "https://bdc.stanceweb.us/api/qr";
 
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
@@ -58,8 +59,7 @@ function emailWrapper(body: string): string {
 /** Generates the full HTML for the registrant confirmation email. */
 export function getConfirmationEmailHtml(
   data: RegistrationFormData,
-  accessId: string,
-  qrDataUrl: string
+  accessId: string
 ): string {
   const firstName = getFirstName(data.fullName);
   const trackName = getTrackName(data);
@@ -67,6 +67,7 @@ export function getConfirmationEmailHtml(
   const email = escapeHtml(data.email);
   const safeAccessId = escapeHtml(accessId);
   const verifyUrl = `${VERIFY_BASE_URL}/${encodeURIComponent(accessId)}`;
+  const qrImageUrl = `${QR_BASE_URL}/${encodeURIComponent(accessId)}`;
 
   const body = `
     <!-- Header -->
@@ -226,7 +227,7 @@ export function getConfirmationEmailHtml(
             </td>
             <td style="background-color:#EFF6FF;padding:20px;vertical-align:middle;text-align:center;">
               <a href="${verifyUrl}" style="display:inline-block;text-decoration:none;">
-                <img src="${qrDataUrl}"
+                <img src="${qrImageUrl}"
                      width="110" height="110"
                      alt="Scan QR code at entrance"
                      style="display:block;border:6px solid #ffffff;

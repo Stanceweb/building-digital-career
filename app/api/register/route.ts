@@ -2,14 +2,12 @@
 // Public POST endpoint — validates, inserts into PostgreSQL, sends transactional emails.
 
 import { NextResponse } from "next/server";
-import QRCode from "qrcode";
 import { getPool } from "@/lib/db";
 import { registrationFormSchema } from "@/lib/registration-schema";
 import { sendEmail, getAdminEmail } from "@/lib/mailer";
 import {
   getConfirmationEmailHtml,
   getAdminNotificationEmailHtml,
-  VERIFY_BASE_URL,
 } from "@/lib/email-templates";
 
 export async function POST(request: Request) {
@@ -81,17 +79,10 @@ export async function POST(request: Request) {
 
   // ── Step 4: Confirmation email → registrant (non-fatal) ─────────────────
   try {
-    const verifyUrl = `${VERIFY_BASE_URL}/${encodeURIComponent(accessId ?? "")}`;
-    const qrDataUrl = await QRCode.toDataURL(verifyUrl, {
-      width: 220,
-      margin: 1,
-      color: { dark: "#0F172A", light: "#FFFFFF" },
-    });
-
     await sendEmail({
       to: { name: d.fullName, email: d.email },
       subject: "You're registered! 🎉 Building a Digital Career",
-      htmlContent: getConfirmationEmailHtml(d, accessId ?? "", qrDataUrl),
+      htmlContent: getConfirmationEmailHtml(d, accessId ?? ""),
     });
   } catch (error) {
     console.error("[POST /api/register] Confirmation email failed:", error);
