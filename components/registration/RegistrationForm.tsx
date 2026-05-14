@@ -5,6 +5,8 @@
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
 import type { RegistrationFormData } from "@/lib/registration-schema";
+import { generateAccessId } from "@/lib/access-id";
+import { createRegistration } from "@/lib/supabase-public";
 import ProgressBar from "./ProgressBar";
 import StepPersonalInfo from "./StepPersonalInfo";
 import StepBackgroundInfo from "./StepBackgroundInfo";
@@ -27,6 +29,7 @@ const RegistrationForm = () => {
   const [currentStep, setCurrentStep] = useState(0);
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState<Partial<RegistrationFormData>>({});
+  const [accessId, setAccessId] = useState<string>("");
 
   const mergeAndAdvance = (stepData: Partial<RegistrationFormData>) => {
     setFormData((prev) => ({ ...prev, ...stepData }));
@@ -38,8 +41,14 @@ const RegistrationForm = () => {
   const goToStep = (step: number) => setCurrentStep(step);
 
   const handleSubmit = async () => {
-    await new Promise((resolve) => setTimeout(resolve, 1500));
-    console.log("Registration submitted:", formData);
+    const newAccessId = generateAccessId();
+    setAccessId(newAccessId);
+
+    const result = await createRegistration(formData, newAccessId);
+    if (!result.success) {
+      console.warn("[handleSubmit] DB write failed:", result.error);
+    }
+
     setIsSubmitted(true);
   };
 
@@ -47,13 +56,18 @@ const RegistrationForm = () => {
     setFormData({});
     setCurrentStep(0);
     setIsSubmitted(false);
+    setAccessId("");
   };
 
   if (isSubmitted) {
     return (
-      <div className="min-h-screen bg-[#F8FAFC] flex items-center justify-center px-4 py-12">
-        <div className="w-full max-w-lg bg-white rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.06)] p-8">
-          <SuccessScreen formData={formData} onReset={handleReset} />
+      <div className="min-h-screen bg-[#F8FAFC] flex items-start justify-center px-4 py-12">
+        <div className="w-full max-w-2xl bg-white rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.06)] p-8">
+          <SuccessScreen
+            formData={formData}
+            onReset={handleReset}
+            accessId={accessId}
+          />
         </div>
       </div>
     );

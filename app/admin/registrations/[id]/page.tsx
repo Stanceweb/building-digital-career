@@ -4,6 +4,7 @@ import { notFound } from "next/navigation";
 import Link from "next/link";
 import {
   ArrowLeft,
+  KeyRound,
   Code2,
   Palette,
   Layout,
@@ -150,6 +151,30 @@ export default async function RegistrationDetailPage({ params }: PageProps) {
             </blockquote>
           ) : (
             <p className="text-sm text-slate-400 italic">Not provided</p>
+          )}
+        </div>
+
+        {/* Card 5 — Entrance Access */}
+        <div className="rounded-xl border border-slate-200 bg-white shadow-sm p-6">
+          <h2 className="text-xs font-semibold uppercase tracking-wider text-slate-500 mb-4">
+            Entrance Access
+          </h2>
+          {reg.access_id ? (
+            <div className="flex items-center gap-4">
+              <div className="flex items-center justify-center w-10 h-10 rounded-xl bg-green-50 flex-shrink-0">
+                <KeyRound className="w-5 h-5 text-green-600" />
+              </div>
+              <div>
+                <p className="text-xs text-slate-500 font-medium mb-0.5">Access ID</p>
+                <p className="font-mono text-xl font-bold tracking-widest text-slate-900">
+                  {reg.access_id}
+                </p>
+              </div>
+            </div>
+          ) : (
+            <p className="text-sm text-slate-400 italic">
+              No access ID — registered before entrance card feature was added.
+            </p>
           )}
         </div>
       </div>

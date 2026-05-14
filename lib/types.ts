@@ -17,6 +17,7 @@ export interface Registration {
   hear_about_us: string;
   selected_track: string;
   motivation: string | null;
+  access_id: string | null;
 }
 
 export interface TrackStats {
