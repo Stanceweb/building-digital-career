@@ -12,6 +12,13 @@ export function getPool(): Pool {
   if (!connectionString) {
     throw new Error("DATABASE_URL environment variable is not set");
   }
-  pool = new Pool({ connectionString });
+  pool = new Pool({
+    connectionString,
+    // Accept self-signed certs while still encrypting the connection.
+    // Data in transit is encrypted; certificate authority validation is skipped.
+    ssl: connectionString.includes("localhost")
+      ? false
+      : { rejectUnauthorized: false },
+  });
   return pool;
 }
