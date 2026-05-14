@@ -5,6 +5,8 @@
 import type { RegistrationFormData } from "@/lib/registration-schema";
 import { getTrackDisplayName } from "@/lib/types";
 
+export const VERIFY_BASE_URL = "https://bdc.stanceweb.us/verify";
+
 // ── Helpers ──────────────────────────────────────────────────────────────────
 
 function escapeHtml(str: string): string {
@@ -54,11 +56,17 @@ function emailWrapper(body: string): string {
 // ── Email 1: Registrant Confirmation ────────────────────────────────────────
 
 /** Generates the full HTML for the registrant confirmation email. */
-export function getConfirmationEmailHtml(data: RegistrationFormData): string {
+export function getConfirmationEmailHtml(
+  data: RegistrationFormData,
+  accessId: string,
+  qrDataUrl: string
+): string {
   const firstName = getFirstName(data.fullName);
   const trackName = getTrackName(data);
   const fullName = escapeHtml(data.fullName);
   const email = escapeHtml(data.email);
+  const safeAccessId = escapeHtml(accessId);
+  const verifyUrl = `${VERIFY_BASE_URL}/${encodeURIComponent(accessId)}`;
 
   const body = `
     <!-- Header -->
@@ -177,16 +185,64 @@ export function getConfirmationEmailHtml(data: RegistrationFormData): string {
           </tr>
         </table>
 
-        <!-- CTA -->
-        <table role="presentation" width="100%" cellpadding="0" cellspacing="0">
+        <!-- Entrance Card -->
+        <table role="presentation" width="100%" cellpadding="0" cellspacing="0"
+               style="border:2px solid #BFDBFE;border-radius:12px;margin:28px 0 0 0;overflow:hidden;">
+          <!-- Card header -->
           <tr>
-            <td align="center">
-              <a href="#"
-                 style="display:inline-block;background-color:#2563EB;color:#ffffff;
-                         padding:12px 28px;border-radius:8px;text-decoration:none;
-                         font-size:15px;font-weight:600;letter-spacing:-0.1px;">
-                Add to Calendar
+            <td colspan="2" style="background-color:#2563EB;padding:14px 20px;">
+              <p style="font-size:11px;font-weight:700;color:#ffffff;
+                         text-transform:uppercase;letter-spacing:0.15em;margin:0;">
+                Your Entrance Card — Present at the Door
+              </p>
+            </td>
+          </tr>
+          <!-- Card body: info left, QR right -->
+          <tr>
+            <td style="background-color:#EFF6FF;padding:20px;vertical-align:top;width:60%;">
+              <p style="font-size:10px;font-weight:700;color:#2563EB;
+                         text-transform:uppercase;letter-spacing:0.1em;margin:0 0 10px 0;">
+                Participant
+              </p>
+              <p style="font-size:17px;font-weight:800;color:#0F172A;
+                         margin:0 0 14px 0;line-height:1.2;">
+                ${fullName}
+              </p>
+              <p style="font-size:10px;font-weight:700;color:#2563EB;
+                         text-transform:uppercase;letter-spacing:0.1em;margin:0 0 4px 0;">
+                Track
+              </p>
+              <p style="font-size:13px;font-weight:600;color:#1D4ED8;margin:0 0 14px 0;">
+                ${trackName}
+              </p>
+              <p style="font-size:10px;font-weight:700;color:#6B7280;
+                         text-transform:uppercase;letter-spacing:0.1em;margin:0 0 4px 0;">
+                Access ID
+              </p>
+              <p style="font-family:'Courier New',Courier,monospace;font-size:13px;
+                         font-weight:700;color:#0F172A;letter-spacing:0.1em;margin:0;">
+                ${safeAccessId}
+              </p>
+            </td>
+            <td style="background-color:#EFF6FF;padding:20px;vertical-align:middle;text-align:center;">
+              <a href="${verifyUrl}" style="display:inline-block;text-decoration:none;">
+                <img src="${qrDataUrl}"
+                     width="110" height="110"
+                     alt="Scan QR code at entrance"
+                     style="display:block;border:6px solid #ffffff;
+                             border-radius:8px;box-shadow:0 2px 8px rgba(0,0,0,0.1);" />
               </a>
+              <p style="font-size:10px;color:#6B7280;margin:6px 0 0 0;">
+                Scan at entrance
+              </p>
+            </td>
+          </tr>
+          <!-- Card footer -->
+          <tr>
+            <td colspan="2" style="background-color:#DBEAFE;padding:10px 20px;text-align:center;">
+              <p style="font-size:11px;color:#1E40AF;margin:0;">
+                18th – 20th June 2025 &nbsp;&middot;&nbsp; CGMI Ihiagwa, Imo State
+              </p>
             </td>
           </tr>
         </table>

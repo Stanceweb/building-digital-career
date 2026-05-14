@@ -7,6 +7,8 @@ import { Printer, CalendarDays, MapPin, Tag } from "lucide-react";
 import type { RegistrationFormData } from "@/lib/registration-schema";
 import { TRACKS } from "@/lib/tracks-data";
 
+const VERIFY_BASE_URL = "https://bdc.stanceweb.us/verify";
+
 interface EntranceCardProps {
   formData: Partial<RegistrationFormData>;
   accessId: string;
@@ -95,7 +97,7 @@ const EntranceCard = ({ formData, accessId }: EntranceCardProps) => {
             <div className="flex-shrink-0 flex flex-col items-center">
               <div className="rounded-xl border border-slate-200 p-2.5 bg-white shadow-sm">
                 <QRCode
-                  value={accessId}
+                  value={`${VERIFY_BASE_URL}/${accessId}`}
                   size={88}
                   level="M"
                   fgColor="#0F172A"
