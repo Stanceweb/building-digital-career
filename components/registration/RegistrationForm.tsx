@@ -4,6 +4,7 @@
 
 import { useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
+import { AlertCircle } from "lucide-react";
 import type { RegistrationFormData } from "@/lib/registration-schema";
 import { generateAccessId } from "@/lib/access-id";
 import { createRegistration } from "@/lib/supabase-public";
@@ -30,6 +31,7 @@ const RegistrationForm = () => {
   const [isSubmitted, setIsSubmitted] = useState(false);
   const [formData, setFormData] = useState<Partial<RegistrationFormData>>({});
   const [accessId, setAccessId] = useState<string>("");
+  const [submitError, setSubmitError] = useState<string | null>(null);
 
   const mergeAndAdvance = (stepData: Partial<RegistrationFormData>) => {
     setFormData((prev) => ({ ...prev, ...stepData }));
@@ -41,12 +43,21 @@ const RegistrationForm = () => {
   const goToStep = (step: number) => setCurrentStep(step);
 
   const handleSubmit = async () => {
+    setSubmitError(null);
+
     const newAccessId = generateAccessId();
     setAccessId(newAccessId);
 
     const result = await createRegistration(formData, newAccessId);
+
     if (!result.success) {
-      console.warn("[handleSubmit] DB write failed:", result.error);
+      const msg = result.error ?? "";
+      setSubmitError(
+        msg.toLowerCase().includes("already registered")
+          ? "This email is already registered for the event."
+          : "Registration failed. Please check your connection and try again."
+      );
+      return;
     }
 
     setIsSubmitted(true);
@@ -57,6 +68,7 @@ const RegistrationForm = () => {
     setCurrentStep(0);
     setIsSubmitted(false);
     setAccessId("");
+    setSubmitError(null);
   };
 
   if (isSubmitted) {
@@ -88,6 +100,18 @@ const RegistrationForm = () => {
         </div>
 
         <ProgressBar currentStep={currentStep} totalSteps={TOTAL_STEPS} />
+
+        {/* Submission error banner — only visible on review step */}
+        {currentStep === 3 && submitError && (
+          <div
+            role="alert"
+            aria-live="polite"
+            className="mb-4 flex items-center gap-2.5 rounded-xl bg-red-50 border border-red-200 px-4 py-3 text-sm text-red-700"
+          >
+            <AlertCircle className="w-4 h-4 flex-shrink-0" />
+            {submitError}
+          </div>
+        )}
 
         {/* Form card */}
         <div className="bg-white rounded-2xl shadow-[0_2px_12px_rgba(0,0,0,0.06)] p-6 sm:p-8 overflow-hidden">
