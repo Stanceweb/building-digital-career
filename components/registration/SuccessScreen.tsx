@@ -85,7 +85,7 @@ const SuccessScreen = ({ formData, onReset, accessId }: SuccessScreenProps) => {
               <MapPin className="w-4 h-4 text-blue-600 flex-shrink-0 mt-0.5" />
               <div>
                 <p className="text-xs text-slate-500 font-medium">Location</p>
-                <p className="text-sm font-semibold text-slate-900">CGMI Ihiagwa, Imo State</p>
+                <p className="text-sm font-semibold text-slate-900">CGMI LOVECENTER, Nekede II, Imo State</p>
               </div>
             </div>
           </div>
@@ -93,7 +93,7 @@ const SuccessScreen = ({ formData, onReset, accessId }: SuccessScreenProps) => {
 
         <p className="text-sm text-slate-600 leading-relaxed mb-2 print:hidden">
           Thank you for registering, <strong className="text-slate-800">{firstName}</strong>. We look
-          forward to seeing you at CGMI Ihiagwa. Check your email for further details closer to the
+          forward to seeing you at CGMI LOVECENTER, Nekede II. Check your email for further details closer to the
           event.
         </p>
 

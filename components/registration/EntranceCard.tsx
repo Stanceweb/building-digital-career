@@ -88,7 +88,7 @@ const EntranceCard = ({ formData, accessId }: EntranceCardProps) => {
                 </div>
                 <div className="flex items-center gap-1.5 text-slate-500">
                   <MapPin className="w-3.5 h-3.5 flex-shrink-0" />
-                  <span className="text-xs font-medium">CGMI Ihiagwa, Imo State</span>
+                  <span className="text-xs font-medium">CGMI LOVECENTER, Nekede II, Imo State</span>
                 </div>
               </div>
             </div>

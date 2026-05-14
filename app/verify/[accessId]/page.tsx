@@ -112,7 +112,7 @@ export default async function VerifyPage({ params }: PageProps) {
               <MapPin className="w-5 h-5 text-slate-400 flex-shrink-0 mt-0.5" />
               <div>
                 <p className="text-xs font-semibold text-slate-400 uppercase tracking-wider mb-0.5">Location</p>
-                <p className="text-sm font-medium text-slate-700">CGMI Ihiagwa, Imo State</p>
+                <p className="text-sm font-medium text-slate-700">CGMI LOVECENTER, Nekede II, Imo State</p>
               </div>
             </div>
           </div>
@@ -130,7 +130,7 @@ export default async function VerifyPage({ params }: PageProps) {
         </div>
 
         <p className="text-center text-xs text-slate-400 mt-4">
-          Building a Digital Career · CGMI Ihiagwa
+          Building a Digital Career · CGMI LOVECENTER, Nekede II, Imo State
         </p>
       </div>
     </div>

@@ -117,7 +117,7 @@ export default function LoginPage({ searchParams }: LoginPageProps) {
         </div>
 
         <p className="text-center text-xs text-slate-400 mt-4">
-          CGMI Ihiagwa — Event Admin Panel
+          CGMI LOVECENTER, Nekede II — Event Admin Panel
         </p>
       </div>
     </div>

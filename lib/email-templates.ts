@@ -77,7 +77,7 @@ export function getConfirmationEmailHtml(
           Building a Digital Career
         </h1>
         <p style="font-size:14px;color:rgba(255,255,255,0.85);margin:0;">
-          18th – 20th June 2025 &middot; CGMI Ihiagwa, Imo State
+          18th – 20th June 2025 &middot; CGMI LOVECENTER, Nekede II, Imo State
         </p>
       </td>
     </tr>
@@ -93,7 +93,7 @@ export function getConfirmationEmailHtml(
         <p style="font-size:15px;line-height:1.6;color:#475569;margin:0 0 24px 0;">
           Thank you for registering for <strong style="color:#0F172A;">Building a Digital Career</strong> —
           a free digital skills workshop taking place from <strong style="color:#0F172A;">18th to 20th June 2025</strong>
-          at CGMI Ihiagwa, Imo State. We&rsquo;re excited to have you join us!
+          at CGMI LOVECENTER, Nekede II, Imo State. We&rsquo;re excited to have you join us!
         </p>
 
         <!-- Registration details card -->
@@ -148,7 +148,7 @@ export function getConfirmationEmailHtml(
                     Location
                   </td>
                   <td style="font-size:14px;color:#0F172A;font-weight:500;padding:6px 0;vertical-align:top;">
-                    CGMI Ihiagwa, Imo State
+                    CGMI LOVECENTER, Nekede II, Imo State
                   </td>
                 </tr>
               </table>
@@ -242,7 +242,7 @@ export function getConfirmationEmailHtml(
           <tr>
             <td colspan="2" style="background-color:#DBEAFE;padding:10px 20px;text-align:center;">
               <p style="font-size:11px;color:#1E40AF;margin:0;">
-                18th – 20th June 2025 &nbsp;&middot;&nbsp; CGMI Ihiagwa, Imo State
+                18th – 20th June 2025 &nbsp;&middot;&nbsp; CGMI LOVECENTER, Nekede II, Imo State
               </p>
             </td>
           </tr>
@@ -259,7 +259,7 @@ export function getConfirmationEmailHtml(
           Questions? Reply to this email and we&rsquo;ll get back to you.
         </p>
         <p style="font-size:12px;color:#94A3B8;margin:0;">
-          &copy; 2025 Building a Digital Career &middot; CGMI Ihiagwa, Imo State
+          &copy; 2025 Building a Digital Career &middot; CGMI LOVECENTER, Nekede II, Imo State
         </p>
       </td>
     </tr>

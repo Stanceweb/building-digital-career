@@ -25,7 +25,7 @@ export default async function AdminDashboardPage() {
       <div className="mb-8">
         <h1 className="text-xl font-semibold text-slate-900">Overview</h1>
         <p className="text-sm text-slate-500 mt-0.5">
-          Building a Digital Career · 18–20 June 2025 · CGMI Ihiagwa
+          Building a Digital Career · 18–20 June 2025 · CGMI LOVECENTER, Nekede II, Imo State
         </p>
       </div>
 
